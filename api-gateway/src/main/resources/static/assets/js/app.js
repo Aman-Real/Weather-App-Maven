@@ -3,6 +3,7 @@ import { api, getAuth, setAuth } from './api.js';
 import { $, $$, esc, fmt, icon, kind, toast } from './ui.js';
 import { historyChart } from './chart.js';
 import { initMap, focus as focusMap, invalidate as invalidateMap } from './map.js';
+import { bindThemeToggle } from './theme.js';
 import { bindAlertsUI, connectStream, disconnectStream, loadAlertsView, refreshAlerts, resetAlerts } from './alerts.js';
 
 const DEFAULT_LOCATION = { name: 'Dehradun', country: 'India', latitude: 30.32, longitude: 78.03 };
@@ -358,6 +359,7 @@ function bindPwa() {
 function start() {
   $$('.tab').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
   $$('[data-goto]').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.goto)));
+  bindThemeToggle($('#theme-btn'));
   bindSearch();
   bindHistory();
   bindAccount();

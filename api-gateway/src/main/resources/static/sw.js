@@ -1,9 +1,9 @@
 // SkyCast service worker: offline app shell + last-known weather.
-const VERSION = 'skycast-v2';
+const VERSION = 'skycast-v3';
 const SHELL = [
   '/', '/index.html', '/manifest.json',
   '/assets/css/app.css',
-  '/assets/js/app.js', '/assets/js/api.js', '/assets/js/ui.js', '/assets/js/chart.js', '/assets/js/map.js', '/assets/js/alerts.js',
+  '/assets/js/app.js', '/assets/js/api.js', '/assets/js/theme.js', '/assets/js/ui.js', '/assets/js/chart.js', '/assets/js/map.js', '/assets/js/alerts.js',
   '/vendor/leaflet/leaflet.js', '/vendor/leaflet/leaflet.css',
   '/icons/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/favicon-32.png',
 ];

@@ -1,9 +1,10 @@
 // Interactive weather map: OpenFreeMap vector base (OSM raster fallback), RainViewer radar animation, SkyCast temperature/wind grid.
 import { api } from './api.js';
 import { $, esc, fmt, tempColor } from './ui.js';
+import { isDark } from './theme.js';
 
 const RAINVIEWER = 'https://api.rainviewer.com/public/weather-maps.json';
-let map, radarLayer, tempLayer, windLayer, frames = [], host = '', frameIndex = 0, timer = null, pending = null, centerMarker;
+let map, baseLayer, radarLayer, tempLayer, windLayer, frames = [], host = '', frameIndex = 0, timer = null, pending = null, centerMarker;
 
 export function initMap(location) {
   if (map) { focus(location); return; }
@@ -46,7 +47,6 @@ export function invalidate() {
  * inside Leaflet. Falls back to OpenStreetMap raster tiles when WebGL2 is not available.
  */
 async function addBaseMap() {
-  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const attribution = '<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> '
     + '&copy; <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> '
     + 'Data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
@@ -57,12 +57,11 @@ async function addBaseMap() {
     window.maplibregl = maplibregl;
     await loadScript('/vendor/maplibre/leaflet-maplibre-gl.js');
     loadCss('/vendor/maplibre/maplibre-gl.css');
-    const layer = window.MaplibreGLLeaflet.maplibreGL({
-      style: `https://tiles.openfreemap.org/styles/${dark ? 'dark' : 'positron'}`,
-      attribution,
-    }).addTo(map);
-    layer.getMaplibreMap().on('error', (e) => console.warn('Base map:', e.error?.message || e));
+    baseLayer = window.MaplibreGLLeaflet.maplibreGL({ style: styleUrl(), attribution }).addTo(map);
+    baseLayer.getMaplibreMap().on('error', (e) => console.warn('Base map:', e.error?.message || e));
     map.attributionControl.addAttribution(attribution);
+    // Theme toggle: swap between the light (positron) and dark OpenFreeMap styles.
+    window.addEventListener('skycast:theme', () => baseLayer.getMaplibreMap().setStyle(styleUrl()));
   } catch (e) {
     console.warn('Vector base map unavailable, using raster tiles:', e.message);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -70,6 +69,10 @@ async function addBaseMap() {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
   }
+}
+
+function styleUrl() {
+  return `https://tiles.openfreemap.org/styles/${isDark() ? 'dark' : 'positron'}`;
 }
 
 function loadScript(src) {
