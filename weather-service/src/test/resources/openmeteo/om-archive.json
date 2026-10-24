@@ -1,0 +1,44 @@
+{
+ "latitude": 30.3125,
+ "longitude": 78.0375,
+ "utc_offset_seconds": 19800,
+ "timezone": "Asia/Kolkata",
+ "daily": {
+  "time": [
+   "2026-09-01",
+   "2026-09-02",
+   "2026-09-03",
+   "2026-09-04"
+  ],
+  "weather_code": [
+   63,
+   61,
+   2,
+   1
+  ],
+  "temperature_2m_max": [
+   27.1,
+   28.4,
+   29.0,
+   null
+  ],
+  "temperature_2m_min": [
+   18.2,
+   18.9,
+   19.4,
+   null
+  ],
+  "precipitation_sum": [
+   12.4,
+   3.1,
+   0.0,
+   null
+  ],
+  "wind_speed_10m_max": [
+   11.0,
+   9.5,
+   8.2,
+   null
+  ]
+ }
+}

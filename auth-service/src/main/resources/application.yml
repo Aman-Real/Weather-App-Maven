@@ -1,0 +1,53 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+  application:
+    name: auth-service
+  profiles:
+    default: dev
+  datasource:
+    url: jdbc:h2:mem:authdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none          # schema is owned by Flyway (db/migration)
+  flyway:
+    enabled: true
+
+skycast:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-change-me-skycast-jwt-secret-at-least-32-bytes-long}
+    issuer: skycast-auth
+    expiration-minutes: 720
+  seed:
+    admin-password: ${ADMIN_PASSWORD:admin123}
+    demo-password: ${DEMO_PASSWORD:demo123}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    maven-profile: "@activeProfile@"
+    version: "@project.version@"

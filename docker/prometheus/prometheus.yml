@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: skycast
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['weather-service:8082', 'auth-service:8081', 'alert-service:8083']

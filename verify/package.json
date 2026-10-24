@@ -1,0 +1,13 @@
+{
+  "name": "skycast-verify",
+  "private": true,
+  "description": "Frontend end-to-end checks for the SkyCast PWA (mock API built from the contract fixtures)",
+  "type": "module",
+  "scripts": {
+    "mock": "node mock-server.mjs",
+    "e2e": "node e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

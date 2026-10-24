@@ -1,0 +1,15 @@
+{
+  "locationName": "Dehradun",
+  "latitude": 30.32,
+  "longitude": 78.03,
+  "time": "2026-10-24T14:45:00",
+  "temperature": 24.6,
+  "apparentTemperature": 25.1,
+  "humidity": 58,
+  "windSpeed": 9.4,
+  "precipitation": 0.0,
+  "weatherCode": 2,
+  "condition": "Partly cloudy",
+  "day": true,
+  "source": "LIVE"
+}

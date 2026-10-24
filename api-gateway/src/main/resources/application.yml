@@ -1,0 +1,48 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+  profiles:
+    default: dev
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false      # routes are explicit (GatewayRoutesConfig)
+
+skycast:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-change-me-skycast-jwt-secret-at-least-32-bytes-long}
+    issuer: skycast-auth
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,gateway
+  endpoint:
+    health:
+      probes:
+        enabled: true
+    gateway:
+      access: read-only
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    maven-profile: "@activeProfile@"
+    version: "@project.version@"

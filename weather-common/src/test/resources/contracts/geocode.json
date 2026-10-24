@@ -1,0 +1,5 @@
+[
+  {"name": "Dehradun", "country": "India", "admin1": "Uttarakhand", "latitude": 30.32, "longitude": 78.03},
+  {"name": "Delhi", "country": "India", "admin1": "Delhi", "latitude": 28.65, "longitude": 77.23},
+  {"name": "Dubai", "country": "United Arab Emirates", "admin1": "Dubai", "latitude": 25.08, "longitude": 55.31}
+]

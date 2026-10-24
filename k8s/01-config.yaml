@@ -1,0 +1,24 @@
+# Non-secret configuration shared by every service.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skycast-config
+  namespace: skycast
+data:
+  SPRING_PROFILES_ACTIVE: docker
+  EUREKA_URL: http://discovery-server:8761/eureka
+  DB_HOST: postgres
+  DB_USER: skycast
+---
+# Secrets: replace the values (or create with
+#   kubectl -n skycast create secret generic skycast-secrets --from-literal=JWT_SECRET=... ).
+apiVersion: v1
+kind: Secret
+metadata:
+  name: skycast-secrets
+  namespace: skycast
+type: Opaque
+stringData:
+  JWT_SECRET: change-me-to-a-long-random-string-of-at-least-32-characters
+  DB_PASSWORD: change-me-db
+  ADMIN_PASSWORD: change-me-admin

@@ -1,0 +1,2 @@
+com.skycast.common.security.SkycastSecurityAutoConfiguration
+com.skycast.common.error.SkycastWebAutoConfiguration

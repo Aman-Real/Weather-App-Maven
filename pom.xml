@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Spring Boot parent: plugin management, dependency versions, resource filtering -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.15</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.skycast</groupId>
+    <artifactId>skycast-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>SkyCast Weather Dashboard</name>
+    <description>Spring Boot microservices weather dashboard (Server Side Engineering project)</description>
+
+    <modules>
+        <module>weather-common</module>
+        <module>discovery-server</module>
+        <module>auth-service</module>
+        <module>weather-service</module>
+        <module>alert-service</module>
+        <module>api-gateway</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <spring-cloud.version>2025.0.3</spring-cloud.version>
+        <jjwt.version>0.13.0</jjwt.version>
+        <springdoc.version>2.8.17</springdoc.version>
+        <!-- set by the Maven profiles below; passed to spring-boot:run and filtered into info.app.maven-profile -->
+        <activeProfile>dev</activeProfile>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.skycast</groupId>
+                <artifactId>weather-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- `mvnw -pl weather-service spring-boot:run -Pdocker` starts the app with the docker Spring profile -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <profiles>
+                            <profile>${activeProfile}</profile>
+                        </profiles>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <!-- mvnw package            -> dev profile (H2 in-memory) -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <activeProfile>dev</activeProfile>
+            </properties>
+        </profile>
+        <!-- mvnw package -Pdocker  -> docker profile (PostgreSQL, container host names) -->
+        <profile>
+            <id>docker</id>
+            <properties>
+                <activeProfile>docker</activeProfile>
+            </properties>
+        </profile>
+        <!-- mvnw verify -Pfast      -> skip tests for a quick local build -->
+        <profile>
+            <id>fast</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </profile>
+    </profiles>
+</project>

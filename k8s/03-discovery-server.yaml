@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-server
+  namespace: skycast
+  labels: { app: discovery-server }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: discovery-server }
+  template:
+    metadata:
+      labels: { app: discovery-server }
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8761"
+    spec:
+      containers:
+        - name: discovery-server
+          image: skycast/discovery-server:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 8761 }]
+          resources:
+            requests: { cpu: 100m, memory: 384Mi }
+            limits: { memory: 768Mi }
+          startupProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8761 }
+            periodSeconds: 5
+            failureThreshold: 36
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8761 }
+            periodSeconds: 15
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: 8761 }
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-server
+  namespace: skycast
+spec:
+  type: ClusterIP
+  selector: { app: discovery-server }
+  ports:
+    - port: 8761
+      targetPort: 8761

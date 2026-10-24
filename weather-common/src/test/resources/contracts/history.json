@@ -1,0 +1,286 @@
+{
+  "latitude": 30.32,
+  "longitude": 78.03,
+  "startDate": "2026-09-24",
+  "endDate": "2026-10-23",
+  "days": [
+    {
+      "date": "2026-09-24",
+      "tempMax": 26.0,
+      "tempMin": 18.0,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 10.0,
+      "weatherCode": 2,
+      "condition": "Partly cloudy"
+    },
+    {
+      "date": "2026-09-25",
+      "tempMax": 27.6,
+      "tempMin": 18.0,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 13.4,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-09-26",
+      "tempMax": 28.2,
+      "tempMin": 17.9,
+      "precipitationSum": 3.2,
+      "windSpeedMax": 13.6,
+      "weatherCode": 61,
+      "condition": "Slight rain"
+    },
+    {
+      "date": "2026-09-27",
+      "tempMax": 28.7,
+      "tempMin": 17.8,
+      "precipitationSum": 12.5,
+      "windSpeedMax": 10.6,
+      "weatherCode": 63,
+      "condition": "Moderate rain"
+    },
+    {
+      "date": "2026-09-28",
+      "tempMax": 29.2,
+      "tempMin": 17.6,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 7.0,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-09-29",
+      "tempMax": 29.5,
+      "tempMin": 17.3,
+      "precipitationSum": 0.4,
+      "windSpeedMax": 6.2,
+      "weatherCode": 61,
+      "condition": "Slight rain"
+    },
+    {
+      "date": "2026-09-30",
+      "tempMax": 29.8,
+      "tempMin": 17.1,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 8.9,
+      "weatherCode": 2,
+      "condition": "Partly cloudy"
+    },
+    {
+      "date": "2026-10-01",
+      "tempMax": 29.0,
+      "tempMin": 16.8,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 12.6,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-02",
+      "tempMax": 30.0,
+      "tempMin": 16.5,
+      "precipitationSum": 6.8,
+      "windSpeedMax": 14.0,
+      "weatherCode": 63,
+      "condition": "Moderate rain"
+    },
+    {
+      "date": "2026-10-03",
+      "tempMax": 29.9,
+      "tempMin": 16.1,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 11.6,
+      "weatherCode": 2,
+      "condition": "Partly cloudy"
+    },
+    {
+      "date": "2026-10-04",
+      "tempMax": 29.7,
+      "tempMin": 15.8,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 7.8,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-05",
+      "tempMax": 29.4,
+      "tempMin": 15.5,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 6.0,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-06",
+      "tempMax": 29.0,
+      "tempMin": 15.2,
+      "precipitationSum": 3.2,
+      "windSpeedMax": 7.9,
+      "weatherCode": 61,
+      "condition": "Slight rain"
+    },
+    {
+      "date": "2026-10-07",
+      "tempMax": 28.5,
+      "tempMin": 14.9,
+      "precipitationSum": 12.5,
+      "windSpeedMax": 11.7,
+      "weatherCode": 63,
+      "condition": "Moderate rain"
+    },
+    {
+      "date": "2026-10-08",
+      "tempMax": 27.0,
+      "tempMin": 14.6,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 14.0,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-09",
+      "tempMax": 27.4,
+      "tempMin": 14.4,
+      "precipitationSum": 0.4,
+      "windSpeedMax": 12.6,
+      "weatherCode": 61,
+      "condition": "Slight rain"
+    },
+    {
+      "date": "2026-10-10",
+      "tempMax": 26.8,
+      "tempMin": 14.2,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 8.8,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-11",
+      "tempMax": 26.2,
+      "tempMin": 14.1,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 6.2,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-12",
+      "tempMax": 25.7,
+      "tempMin": 14.0,
+      "precipitationSum": 6.8,
+      "windSpeedMax": 7.0,
+      "weatherCode": 63,
+      "condition": "Moderate rain"
+    },
+    {
+      "date": "2026-10-13",
+      "tempMax": 25.2,
+      "tempMin": 14.0,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 10.6,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-14",
+      "tempMax": 24.7,
+      "tempMin": 14.0,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 13.7,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-15",
+      "tempMax": 23.4,
+      "tempMin": 14.1,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 13.3,
+      "weatherCode": 2,
+      "condition": "Partly cloudy"
+    },
+    {
+      "date": "2026-10-16",
+      "tempMax": 24.1,
+      "tempMin": 14.3,
+      "precipitationSum": 3.2,
+      "windSpeedMax": 10.0,
+      "weatherCode": 61,
+      "condition": "Slight rain"
+    },
+    {
+      "date": "2026-10-17",
+      "tempMax": 24.0,
+      "tempMin": 14.5,
+      "precipitationSum": 12.5,
+      "windSpeedMax": 6.6,
+      "weatherCode": 63,
+      "condition": "Moderate rain"
+    },
+    {
+      "date": "2026-10-18",
+      "tempMax": 24.0,
+      "tempMin": 14.7,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 6.4,
+      "weatherCode": 2,
+      "condition": "Partly cloudy"
+    },
+    {
+      "date": "2026-10-19",
+      "tempMax": 24.1,
+      "tempMin": 15.0,
+      "precipitationSum": 0.4,
+      "windSpeedMax": 9.5,
+      "weatherCode": 61,
+      "condition": "Slight rain"
+    },
+    {
+      "date": "2026-10-20",
+      "tempMax": 24.3,
+      "tempMin": 15.3,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 13.1,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-21",
+      "tempMax": 24.7,
+      "tempMin": 15.6,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 13.8,
+      "weatherCode": 2,
+      "condition": "Partly cloudy"
+    },
+    {
+      "date": "2026-10-22",
+      "tempMax": 24.1,
+      "tempMin": 15.9,
+      "precipitationSum": 6.8,
+      "windSpeedMax": 11.1,
+      "weatherCode": 63,
+      "condition": "Moderate rain"
+    },
+    {
+      "date": "2026-10-23",
+      "tempMax": 25.6,
+      "tempMin": 16.2,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 7.3,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    }
+  ],
+  "stats": {
+    "averageMax": 26.9,
+    "averageMin": 15.6,
+    "totalPrecipitation": 68.7,
+    "hottestDay": "2026-10-02",
+    "wettestDay": "2026-09-27"
+  },
+  "source": "ARCHIVE"
+}

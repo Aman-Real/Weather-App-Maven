@@ -1,0 +1,216 @@
+{
+  "latitude": 30.32,
+  "longitude": 78.03,
+  "timezone": "Asia/Kolkata",
+  "hourly": [
+    {
+      "time": "2026-10-24T15:00:00",
+      "temperature": 24.0,
+      "precipitationProbability": 5,
+      "weatherCode": 2
+    },
+    {
+      "time": "2026-10-24T16:00:00",
+      "temperature": 23.8,
+      "precipitationProbability": 10,
+      "weatherCode": 2
+    },
+    {
+      "time": "2026-10-24T17:00:00",
+      "temperature": 23.3,
+      "precipitationProbability": 20,
+      "weatherCode": 3
+    },
+    {
+      "time": "2026-10-24T18:00:00",
+      "temperature": 22.5,
+      "precipitationProbability": 35,
+      "weatherCode": 3
+    },
+    {
+      "time": "2026-10-24T19:00:00",
+      "temperature": 21.5,
+      "precipitationProbability": 70,
+      "weatherCode": 61
+    },
+    {
+      "time": "2026-10-24T20:00:00",
+      "temperature": 20.3,
+      "precipitationProbability": 80,
+      "weatherCode": 61
+    },
+    {
+      "time": "2026-10-24T21:00:00",
+      "temperature": 19.0,
+      "precipitationProbability": 65,
+      "weatherCode": 80
+    },
+    {
+      "time": "2026-10-24T22:00:00",
+      "temperature": 17.7,
+      "precipitationProbability": 30,
+      "weatherCode": 3
+    },
+    {
+      "time": "2026-10-24T23:00:00",
+      "temperature": 16.5,
+      "precipitationProbability": 15,
+      "weatherCode": 2
+    },
+    {
+      "time": "2026-10-25T00:00:00",
+      "temperature": 15.5,
+      "precipitationProbability": 5,
+      "weatherCode": 1
+    },
+    {
+      "time": "2026-10-25T01:00:00",
+      "temperature": 14.7,
+      "precipitationProbability": 0,
+      "weatherCode": 0
+    },
+    {
+      "time": "2026-10-25T02:00:00",
+      "temperature": 14.2,
+      "precipitationProbability": 0,
+      "weatherCode": 0
+    },
+    {
+      "time": "2026-10-25T03:00:00",
+      "temperature": 14.0,
+      "precipitationProbability": 0,
+      "weatherCode": 0
+    },
+    {
+      "time": "2026-10-25T04:00:00",
+      "temperature": 14.2,
+      "precipitationProbability": 0,
+      "weatherCode": 0
+    },
+    {
+      "time": "2026-10-25T05:00:00",
+      "temperature": 14.7,
+      "precipitationProbability": 5,
+      "weatherCode": 1
+    },
+    {
+      "time": "2026-10-25T06:00:00",
+      "temperature": 15.5,
+      "precipitationProbability": 5,
+      "weatherCode": 1
+    },
+    {
+      "time": "2026-10-25T07:00:00",
+      "temperature": 16.5,
+      "precipitationProbability": 10,
+      "weatherCode": 2
+    },
+    {
+      "time": "2026-10-25T08:00:00",
+      "temperature": 17.7,
+      "precipitationProbability": 10,
+      "weatherCode": 2
+    },
+    {
+      "time": "2026-10-25T09:00:00",
+      "temperature": 19.0,
+      "precipitationProbability": 25,
+      "weatherCode": 3
+    },
+    {
+      "time": "2026-10-25T10:00:00",
+      "temperature": 20.3,
+      "precipitationProbability": 60,
+      "weatherCode": 61
+    },
+    {
+      "time": "2026-10-25T11:00:00",
+      "temperature": 21.5,
+      "precipitationProbability": 85,
+      "weatherCode": 63
+    },
+    {
+      "time": "2026-10-25T12:00:00",
+      "temperature": 22.5,
+      "precipitationProbability": 70,
+      "weatherCode": 61
+    },
+    {
+      "time": "2026-10-25T13:00:00",
+      "temperature": 23.3,
+      "precipitationProbability": 30,
+      "weatherCode": 3
+    },
+    {
+      "time": "2026-10-25T14:00:00",
+      "temperature": 23.8,
+      "precipitationProbability": 15,
+      "weatherCode": 2
+    }
+  ],
+  "daily": [
+    {
+      "date": "2026-10-24",
+      "tempMax": 26.5,
+      "tempMin": 14.2,
+      "precipitationSum": 2.4,
+      "windSpeedMax": 14.5,
+      "weatherCode": 61,
+      "condition": "Slight rain"
+    },
+    {
+      "date": "2026-10-25",
+      "tempMax": 26.4,
+      "tempMin": 14.7,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 10.2,
+      "weatherCode": 2,
+      "condition": "Partly cloudy"
+    },
+    {
+      "date": "2026-10-26",
+      "tempMax": 25.7,
+      "tempMin": 15.2,
+      "precipitationSum": 0.0,
+      "windSpeedMax": 8.3,
+      "weatherCode": 0,
+      "condition": "Clear sky"
+    },
+    {
+      "date": "2026-10-27",
+      "tempMax": 25.6,
+      "tempMin": 14.2,
+      "precipitationSum": 0.2,
+      "windSpeedMax": 9.9,
+      "weatherCode": 1,
+      "condition": "Mainly clear"
+    },
+    {
+      "date": "2026-10-28",
+      "tempMax": 24.9,
+      "tempMin": 14.7,
+      "precipitationSum": 18.6,
+      "windSpeedMax": 42.7,
+      "weatherCode": 95,
+      "condition": "Thunderstorm"
+    },
+    {
+      "date": "2026-10-29",
+      "tempMax": 24.8,
+      "tempMin": 15.2,
+      "precipitationSum": 7.1,
+      "windSpeedMax": 21.3,
+      "weatherCode": 63,
+      "condition": "Moderate rain"
+    },
+    {
+      "date": "2026-10-30",
+      "tempMax": 24.1,
+      "tempMin": 14.2,
+      "precipitationSum": 0.4,
+      "windSpeedMax": 12.8,
+      "weatherCode": 3,
+      "condition": "Overcast"
+    }
+  ]
+}

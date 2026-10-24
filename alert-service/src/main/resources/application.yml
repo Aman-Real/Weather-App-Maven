@@ -1,0 +1,65 @@
+server:
+  port: ${PORT:8083}
+
+spring:
+  application:
+    name: alert-service
+  profiles:
+    default: dev
+  datasource:
+    url: jdbc:h2:mem:alertdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+  mvc:
+    async:
+      request-timeout: 30m          # long-lived SSE connections; EventSource reconnects afterwards
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true               # Feign calls run inside a Resilience4j circuit breaker
+      client:
+        config:
+          default:
+            connect-timeout: 3000
+            read-timeout: 10000
+
+skycast:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-change-me-skycast-jwt-secret-at-least-32-bytes-long}
+    issuer: skycast-auth
+  alerts:
+    interval: PT5M
+    initial-delay: PT30S
+    cooldown: PT60M
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    maven-profile: "@activeProfile@"
+    version: "@project.version@"

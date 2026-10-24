@@ -1,0 +1,6 @@
+apiVersion: v2
+name: skycast
+description: SkyCast weather dashboard - Spring Boot microservices (Eureka, gateway, auth, weather, alerts) + PostgreSQL
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

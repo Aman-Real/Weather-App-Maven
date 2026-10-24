@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkyCast weather-service status</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 24px auto; padding: 0 16px; color: #0f172a; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+    .tile { background: #eef3fa; border-radius: 12px; padding: 12px; }
+    .tile b { display: block; font-size: 1.4rem; }
+    form { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+    input { padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; }
+    button { padding: 8px 14px; border: 0; border-radius: 8px; background: #2563eb; color: #fff; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e2e8f0; }
+    .error { color: #dc2626; }
+  </style>
+</head>
+<body>
+<h1>SkyCast · weather-service</h1>
+<p>Server-rendered with Spring MVC + Thymeleaf. The app itself lives at the gateway (port 8080).</p>
+
+<div class="tiles">
+  <div class="tile">Stored locations <b th:text="${locationCount}">0</b></div>
+  <div class="tile">Weather snapshots <b th:text="${snapshotCount}">0</b></div>
+  <div class="tile">Provider calls <b th:text="${providerCalls}">0</b></div>
+  <div class="tile">Provider failures <b th:text="${providerFailures}">0</b></div>
+</div>
+
+<form method="get" th:action="@{/status}" th:object="${form}">
+  <input name="name" th:value="${form.name()}" placeholder="City name">
+  <input name="country" th:value="${form.country()}" placeholder="Country">
+  <button type="submit">Search</button>
+  <span class="error" th:if="${#fields.hasErrors('*')}">Please keep filters under 60 characters.</span>
+</form>
+
+<table>
+  <thead><tr><th>Name</th><th>Country</th><th>Lat</th><th>Lon</th><th>Version</th></tr></thead>
+  <tbody>
+  <tr th:each="l : ${locations}">
+    <td th:text="${l.name()}">Dehradun</td>
+    <td th:text="${l.country()}">India</td>
+    <td th:text="${l.latitude()}">30.32</td>
+    <td th:text="${l.longitude()}">78.03</td>
+    <td th:text="${l.version()}">0</td>
+  </tr>
+  <tr th:if="${#lists.isEmpty(locations)}"><td colspan="5">No locations match.</td></tr>
+  </tbody>
+</table>
+</body>
+</html>

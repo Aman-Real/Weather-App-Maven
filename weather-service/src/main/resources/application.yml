@@ -1,0 +1,96 @@
+server:
+  port: ${PORT:8082}
+
+spring:
+  application:
+    name: weather-service
+  profiles:
+    default: dev
+  datasource:
+    url: jdbc:h2:mem:weatherdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none                      # Flyway owns the schema
+    mapping-resources:
+      - META-INF/orm.xml                  # XML mapping + named queries
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50                  # JDBC batching for saveAll()
+        order_inserts: true
+        cache:
+          use_second_level_cache: true    # Hibernate L2 cache (Location entity)
+          region:
+            factory_class: jcache
+        javax:
+          cache:
+            provider: org.ehcache.jsr107.EhcacheCachingProvider
+            missing_cache_strategy: create
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+  flyway:
+    enabled: true
+  batch:
+    job:
+      enabled: false                      # run only on demand (admin endpoint)
+    jdbc:
+      initialize-schema: always           # Spring Batch metadata tables (H2 and PostgreSQL)
+  cache:
+    type: caffeine
+    cache-names: forecast,geocode,grid
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=10m
+  http:
+    client:
+      connect-timeout: 3s
+      read-timeout: 8s
+
+skycast:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-change-me-skycast-jwt-secret-at-least-32-bytes-long}
+    issuer: skycast-auth
+  snapshot:
+    interval: PT15M
+    initial-delay: PT1M
+  open-meteo:
+    forecast-url: https://api.open-meteo.com/v1/forecast
+    archive-url: https://archive-api.open-meteo.com/v1/archive
+    geocoding-url: https://geocoding-api.open-meteo.com/v1/search
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,caches,circuitbreakers
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: when-authorized
+  info:
+    env:
+      enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  observations:
+    key-values:
+      application: ${spring.application.name}
+
+info:
+  app:
+    name: ${spring.application.name}
+    maven-profile: "@activeProfile@"
+    version: "@project.version@"

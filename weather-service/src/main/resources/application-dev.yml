@@ -1,0 +1,4 @@
+# dev profile: in-memory H2 and verbose application logs
+logging:
+  level:
+    com.skycast: DEBUG

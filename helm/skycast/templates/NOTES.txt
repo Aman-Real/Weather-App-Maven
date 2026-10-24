@@ -1,0 +1,5 @@
+SkyCast {{ .Chart.AppVersion }} installed in namespace {{ .Release.Namespace }}.
+
+  kubectl -n {{ .Release.Namespace }} get pods
+  kubectl -n {{ .Release.Namespace }} port-forward svc/api-gateway 8080:8080
+  open http://localhost:8080

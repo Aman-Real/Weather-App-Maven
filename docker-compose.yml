@@ -1,0 +1,143 @@
+# Full stack: PostgreSQL + Eureka + 3 services + gateway (PWA on http://localhost:8080)
+#   docker compose up --build
+#   docker compose --profile observability up --build     (adds Prometheus + Grafana)
+name: skycast
+
+x-spring-service: &spring-service
+  restart: unless-stopped
+  environment: &spring-env
+    SPRING_PROFILES_ACTIVE: docker
+    EUREKA_URL: http://discovery-server:8761/eureka
+    JWT_SECRET: ${JWT_SECRET:-dev-only-change-me-skycast-jwt-secret-at-least-32-bytes-long}
+    DB_HOST: postgres
+    DB_USER: skycast
+    DB_PASSWORD: ${POSTGRES_PASSWORD:-skycast}
+  depends_on: &spring-deps
+    postgres:
+      condition: service_healthy
+    discovery-server:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: skycast
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-skycast}
+      POSTGRES_DB: skycast
+    volumes:
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skycast"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  discovery-server:
+    build:
+      context: .
+      args:
+        MODULE: discovery-server
+    image: skycast/discovery-server:1.0.0
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  auth-service:
+    <<: *spring-service
+    build:
+      context: .
+      args:
+        MODULE: auth-service
+    image: skycast/auth-service:1.0.0
+    environment:
+      <<: *spring-env
+      DB_NAME: authdb
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-demo123}
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8081/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  weather-service:
+    <<: *spring-service
+    build:
+      context: .
+      args:
+        MODULE: weather-service
+    image: skycast/weather-service:1.0.0
+    environment:
+      <<: *spring-env
+      DB_NAME: weatherdb
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8082/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  alert-service:
+    <<: *spring-service
+    build:
+      context: .
+      args:
+        MODULE: alert-service
+    image: skycast/alert-service:1.0.0
+    environment:
+      <<: *spring-env
+      DB_NAME: alertdb
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8083/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  api-gateway:
+    build:
+      context: .
+      args:
+        MODULE: api-gateway
+    image: skycast/api-gateway:1.0.0
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_URL: http://discovery-server:8761/eureka
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me-skycast-jwt-secret-at-least-32-bytes-long}
+    ports:
+      - "8080:8080"
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      weather-service:
+        condition: service_healthy
+      alert-service:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    profiles: ["observability"]
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    profiles: ["observability"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  pgdata:

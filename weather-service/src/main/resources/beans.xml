@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XML-based Spring configuration, imported by XmlBeansConfig (@ImportResource) -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="weatherCodeTranslator"
+          class="com.skycast.weather.support.WeatherCodeTranslator"
+          init-method="init"
+          destroy-method="shutdown">
+        <property name="unknownLabel" value="Unknown"/>
+        <property name="descriptions">
+            <map>
+                <entry key="0" value="Clear sky"/>
+                <entry key="1" value="Mainly clear"/>
+                <entry key="2" value="Partly cloudy"/>
+                <entry key="3" value="Overcast"/>
+                <entry key="45" value="Fog"/>
+                <entry key="48" value="Depositing rime fog"/>
+                <entry key="51" value="Light drizzle"/>
+                <entry key="53" value="Moderate drizzle"/>
+                <entry key="55" value="Dense drizzle"/>
+                <entry key="56" value="Light freezing drizzle"/>
+                <entry key="57" value="Dense freezing drizzle"/>
+                <entry key="61" value="Slight rain"/>
+                <entry key="63" value="Moderate rain"/>
+                <entry key="65" value="Heavy rain"/>
+                <entry key="66" value="Light freezing rain"/>
+                <entry key="67" value="Heavy freezing rain"/>
+                <entry key="71" value="Slight snow fall"/>
+                <entry key="73" value="Moderate snow fall"/>
+                <entry key="75" value="Heavy snow fall"/>
+                <entry key="77" value="Snow grains"/>
+                <entry key="80" value="Slight rain showers"/>
+                <entry key="81" value="Moderate rain showers"/>
+                <entry key="82" value="Violent rain showers"/>
+                <entry key="85" value="Slight snow showers"/>
+                <entry key="86" value="Heavy snow showers"/>
+                <entry key="95" value="Thunderstorm"/>
+                <entry key="96" value="Thunderstorm with slight hail"/>
+                <entry key="99" value="Thunderstorm with heavy hail"/>
+            </map>
+        </property>
+    </bean>
+</beans>

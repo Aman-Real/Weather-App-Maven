@@ -1,0 +1,130 @@
+[
+  {
+    "latitude": 28.0,
+    "longitude": 75.0,
+    "temperature": 29.1,
+    "windSpeed": 6.0,
+    "windDirection": 200,
+    "weatherCode": 0
+  },
+  {
+    "latitude": 28.0,
+    "longitude": 76.5,
+    "temperature": 28.4,
+    "windSpeed": 7.0,
+    "windDirection": 215,
+    "weatherCode": 1
+  },
+  {
+    "latitude": 28.0,
+    "longitude": 78.0,
+    "temperature": 27.7,
+    "windSpeed": 8.0,
+    "windDirection": 230,
+    "weatherCode": 2
+  },
+  {
+    "latitude": 28.0,
+    "longitude": 79.5,
+    "temperature": 27.0,
+    "windSpeed": 9.0,
+    "windDirection": 245,
+    "weatherCode": 3
+  },
+  {
+    "latitude": 29.5,
+    "longitude": 75.0,
+    "temperature": 27.5,
+    "windSpeed": 8.0,
+    "windDirection": 220,
+    "weatherCode": 61
+  },
+  {
+    "latitude": 29.5,
+    "longitude": 76.5,
+    "temperature": 26.8,
+    "windSpeed": 9.0,
+    "windDirection": 235,
+    "weatherCode": 0
+  },
+  {
+    "latitude": 29.5,
+    "longitude": 78.0,
+    "temperature": 26.1,
+    "windSpeed": 10.0,
+    "windDirection": 250,
+    "weatherCode": 2
+  },
+  {
+    "latitude": 29.5,
+    "longitude": 79.5,
+    "temperature": 25.4,
+    "windSpeed": 11.0,
+    "windDirection": 265,
+    "weatherCode": 3
+  },
+  {
+    "latitude": 31.0,
+    "longitude": 75.0,
+    "temperature": 25.9,
+    "windSpeed": 10.0,
+    "windDirection": 240,
+    "weatherCode": 1
+  },
+  {
+    "latitude": 31.0,
+    "longitude": 76.5,
+    "temperature": 25.2,
+    "windSpeed": 11.0,
+    "windDirection": 255,
+    "weatherCode": 2
+  },
+  {
+    "latitude": 31.0,
+    "longitude": 78.0,
+    "temperature": 24.5,
+    "windSpeed": 12.0,
+    "windDirection": 270,
+    "weatherCode": 95
+  },
+  {
+    "latitude": 31.0,
+    "longitude": 79.5,
+    "temperature": 23.8,
+    "windSpeed": 13.0,
+    "windDirection": 285,
+    "weatherCode": 3
+  },
+  {
+    "latitude": 32.5,
+    "longitude": 75.0,
+    "temperature": 24.3,
+    "windSpeed": 12.0,
+    "windDirection": 260,
+    "weatherCode": 0
+  },
+  {
+    "latitude": 32.5,
+    "longitude": 76.5,
+    "temperature": 23.6,
+    "windSpeed": 13.0,
+    "windDirection": 275,
+    "weatherCode": 1
+  },
+  {
+    "latitude": 32.5,
+    "longitude": 78.0,
+    "temperature": 22.9,
+    "windSpeed": 14.0,
+    "windDirection": 290,
+    "weatherCode": 2
+  },
+  {
+    "latitude": 32.5,
+    "longitude": 79.5,
+    "temperature": 22.2,
+    "windSpeed": 15.0,
+    "windDirection": 305,
+    "weatherCode": 61
+  }
+]

@@ -1,0 +1,63 @@
+{{- range $name, $svc := .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels: {{- include "skycast.labels" $ | nindent 4 }}
+    app: {{ $name }}
+spec:
+  replicas: {{ $svc.replicas }}
+  selector:
+    matchLabels: { app: {{ $name }} }
+  template:
+    metadata:
+      labels: { app: {{ $name }} }
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "{{ $svc.port }}"
+    spec:
+      containers:
+        - name: {{ $name }}
+          image: "{{ $.Values.image.registry }}/{{ $name }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          ports: [{ containerPort: {{ $svc.port }} }]
+          env:
+            - { name: SPRING_PROFILES_ACTIVE, value: {{ $.Values.springProfile | quote }} }
+            - { name: EUREKA_URL, value: "http://discovery-server:8761/eureka" }
+            - name: JWT_SECRET
+              valueFrom: { secretKeyRef: { name: {{ $.Release.Name }}-secrets, key: JWT_SECRET } }
+            {{- if $svc.database }}
+            - { name: DB_HOST, value: postgres }
+            - { name: DB_USER, value: skycast }
+            - { name: DB_NAME, value: {{ $svc.database }} }
+            - name: DB_PASSWORD
+              valueFrom: { secretKeyRef: { name: {{ $.Release.Name }}-secrets, key: DB_PASSWORD } }
+            {{- end }}
+            {{- if eq $name "auth-service" }}
+            - name: ADMIN_PASSWORD
+              valueFrom: { secretKeyRef: { name: {{ $.Release.Name }}-secrets, key: ADMIN_PASSWORD } }
+            {{- end }}
+          resources: {{- toYaml $.Values.resources | nindent 12 }}
+          startupProbe:
+            httpGet: { path: /actuator/health/liveness, port: {{ $svc.port }} }
+            periodSeconds: 5
+            failureThreshold: 36
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: {{ $svc.port }} }
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: {{ $svc.port }} }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels: {{- include "skycast.labels" $ | nindent 4 }}
+spec:
+  type: {{ $svc.serviceType }}
+  selector: { app: {{ $name }} }
+  ports:
+    - port: {{ $svc.port }}
+      targetPort: {{ $svc.port }}
+{{- end }}

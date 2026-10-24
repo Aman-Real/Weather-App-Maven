@@ -1,0 +1,8 @@
+[
+  {"id": 7, "locationName": "Dehradun", "latitude": 30.32, "longitude": 78.03, "type": "WIND_ABOVE", "severity": "WARNING",
+   "message": "Wind 42.7 km/h is above your limit of 35.0 km/h in Dehradun", "observedValue": 42.7, "threshold": 35.0,
+   "acknowledged": false, "createdAt": "2026-10-24T13:10:00"},
+  {"id": 6, "locationName": "Dehradun", "latitude": 30.32, "longitude": 78.03, "type": "SEVERE_WEATHER", "severity": "SEVERE",
+   "message": "Thunderstorm reported in Dehradun", "observedValue": 95.0, "threshold": 95.0,
+   "acknowledged": true, "createdAt": "2026-10-23T18:40:00"}
+]

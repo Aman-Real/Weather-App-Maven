@@ -1,0 +1,57 @@
+# Schedulers inside assume ONE replica (no distributed lock).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-service
+  namespace: skycast
+  labels: { app: weather-service }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: weather-service }
+  template:
+    metadata:
+      labels: { app: weather-service }
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8082"
+    spec:
+      containers:
+        - name: weather-service
+          image: skycast/weather-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 8082 }]
+          envFrom:
+            - configMapRef: { name: skycast-config }
+          env:
+            - name: JWT_SECRET
+              valueFrom: { secretKeyRef: { name: skycast-secrets, key: JWT_SECRET } }
+            - { name: DB_NAME, value: weatherdb }
+            - name: DB_PASSWORD
+              valueFrom: { secretKeyRef: { name: skycast-secrets, key: DB_PASSWORD } }
+          resources:
+            requests: { cpu: 100m, memory: 384Mi }
+            limits: { memory: 768Mi }
+          startupProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8082 }
+            periodSeconds: 5
+            failureThreshold: 36
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8082 }
+            periodSeconds: 15
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: 8082 }
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-service
+  namespace: skycast
+spec:
+  type: ClusterIP
+  selector: { app: weather-service }
+  ports:
+    - port: 8082
+      targetPort: 8082

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XML entity mapping + named queries (Jakarta Persistence 3.0 orm.xml) -->
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
+                 version="3.0">
+
+    <!-- Named JPQL query used by DailyWeatherRepository.findRange(..) (Spring Data resolves Entity.method names) -->
+    <named-query name="DailyWeather.findRange">
+        <query>
+            select d from DailyWeather d
+            where d.location.id = :locationId and d.date between :start and :end
+            order by d.date
+        </query>
+    </named-query>
+
+    <!-- Named native query: failed provider calls per endpoint -->
+    <named-native-query name="FetchAuditLog.failuresByEndpoint">
+        <query>
+            SELECT endpoint, COUNT(*) AS failures FROM fetch_audit_log WHERE success = FALSE GROUP BY endpoint
+        </query>
+    </named-native-query>
+
+    <entity class="com.skycast.weather.domain.FetchAuditLog" name="FetchAuditLog" access="FIELD">
+        <table name="fetch_audit_log"/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="endpoint">
+                <column name="endpoint" length="40" nullable="false"/>
+            </basic>
+            <basic name="latitude"/>
+            <basic name="longitude"/>
+            <basic name="success"/>
+            <basic name="durationMs">
+                <column name="duration_ms"/>
+            </basic>
+            <basic name="message">
+                <column name="message" length="255"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="created_at" updatable="false"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

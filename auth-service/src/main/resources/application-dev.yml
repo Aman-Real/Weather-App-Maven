@@ -1,0 +1,10 @@
+# dev profile: in-memory H2, readable SQL logs
+spring:
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    com.skycast: DEBUG

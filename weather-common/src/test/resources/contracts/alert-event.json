@@ -1,0 +1,3 @@
+{"id": 8, "locationName": "Dehradun", "latitude": 30.32, "longitude": 78.03, "type": "TEMPERATURE_ABOVE", "severity": "WARNING",
+ "message": "Temperature 33.4 °C is above your limit of 32.0 °C in Dehradun", "observedValue": 33.4, "threshold": 32.0,
+ "acknowledged": false, "createdAt": "2026-10-24T15:05:00"}

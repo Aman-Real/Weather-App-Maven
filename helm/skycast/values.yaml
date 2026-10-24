@@ -1,0 +1,29 @@
+# helm install skycast ./helm/skycast -n skycast --create-namespace \
+#   --set secrets.jwtSecret=$(openssl rand -hex 32) --set secrets.dbPassword=... --set secrets.adminPassword=...
+image:
+  registry: docker.io/skycast      # where `docker build` images were pushed
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+springProfile: docker
+
+secrets:
+  jwtSecret: change-me-to-a-long-random-string-of-at-least-32-characters
+  dbPassword: change-me-db
+  adminPassword: change-me-admin
+
+postgres:
+  image: postgres:16-alpine
+  storage: 2Gi
+
+# replicas stay at 1 for weather-service and alert-service: their @Scheduled jobs have no distributed lock.
+services:
+  discovery-server: { port: 8761, replicas: 1, database: "", serviceType: ClusterIP }
+  auth-service:     { port: 8081, replicas: 2, database: authdb, serviceType: ClusterIP }
+  weather-service:  { port: 8082, replicas: 1, database: weatherdb, serviceType: ClusterIP }
+  alert-service:    { port: 8083, replicas: 1, database: alertdb, serviceType: ClusterIP }
+  api-gateway:      { port: 8080, replicas: 2, database: "", serviceType: LoadBalancer }
+
+resources:
+  requests: { cpu: 100m, memory: 384Mi }
+  limits: { memory: 768Mi }

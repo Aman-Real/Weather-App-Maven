@@ -1,0 +1,6 @@
+# docker profile: PostgreSQL container (one database per service)
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:weatherdb}
+    username: ${DB_USER:skycast}
+    password: ${DB_PASSWORD:skycast}

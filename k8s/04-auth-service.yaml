@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: skycast
+  labels: { app: auth-service }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: auth-service }
+  template:
+    metadata:
+      labels: { app: auth-service }
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8081"
+    spec:
+      containers:
+        - name: auth-service
+          image: skycast/auth-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 8081 }]
+          envFrom:
+            - configMapRef: { name: skycast-config }
+          env:
+            - name: JWT_SECRET
+              valueFrom: { secretKeyRef: { name: skycast-secrets, key: JWT_SECRET } }
+            - { name: DB_NAME, value: authdb }
+            - name: DB_PASSWORD
+              valueFrom: { secretKeyRef: { name: skycast-secrets, key: DB_PASSWORD } }
+            - name: ADMIN_PASSWORD
+              valueFrom: { secretKeyRef: { name: skycast-secrets, key: ADMIN_PASSWORD } }
+          resources:
+            requests: { cpu: 100m, memory: 384Mi }
+            limits: { memory: 768Mi }
+          startupProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8081 }
+            periodSeconds: 5
+            failureThreshold: 36
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8081 }
+            periodSeconds: 15
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: 8081 }
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: skycast
+spec:
+  type: ClusterIP
+  selector: { app: auth-service }
+  ports:
+    - port: 8081
+      targetPort: 8081

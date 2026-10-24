@@ -1,0 +1,4 @@
+[
+  {"id": 3, "locationName": "Dehradun", "latitude": 30.32, "longitude": 78.03, "metric": "WIND_ABOVE", "threshold": 35.0, "active": true},
+  {"id": 2, "locationName": "Dehradun", "latitude": 30.32, "longitude": 78.03, "metric": "TEMPERATURE_ABOVE", "threshold": 32.0, "active": false}
+]
