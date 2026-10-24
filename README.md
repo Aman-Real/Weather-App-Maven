@@ -49,7 +49,7 @@ All external data sources are **free and need no API key or account**:
 | 🔔 | **Real-time alerts** | Your own rules, e.g. "wind above 35 km/h". Thunderstorm and gale warnings are automatic. Alerts are **pushed instantly over Server-Sent Events** and appear as an in-app toast, an unread badge and a system notification |
 | 📈 | **Historical data** | Any date range of up to a year, with a chart (max/min temperature and rain bars), stats (averages, total rain, hottest and wettest day) and a daily table |
 | 🗺️ | **Interactive map** | Vector base map, animated rain radar (play / scrub) and temperature and wind-direction layers that update as you pan |
-| 📱 | **Mobile app (PWA)** | Installable on Android and iPhone, works offline with the last saved data, mobile-first layout with light and dark mode |
+| 📱 | **Mobile app (PWA)** | Installable on Android and iPhone, works offline with the last saved data, mobile-first layout, light/dark theme toggle (follows the system setting until you choose) |
 | 🛡️ | **Resilient** | If the weather provider is down, circuit breakers serve the last stored reading, so the app never shows a blank screen |
 | 🔐 | **Accounts** | Register and sign in with JWT, save favourite places; admin-only tools for statistics and batch import |
 
@@ -280,7 +280,7 @@ curl -N "http://localhost:8080/api/alerts/stream?access_token=$TOKEN"     # live
 
 ```bash
 cd verify && npm install && npx playwright install chromium && cd ..
-node verify/e2e.mjs                  # 66 checks, screenshots in verify/out/
+node verify/e2e.mjs                  # 76 checks, screenshots in verify/out/
 python verify/check-mapping.py       # verifies all 103 syllabus topics exist in the code
 ```
 

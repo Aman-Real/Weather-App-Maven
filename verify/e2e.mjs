@@ -35,9 +35,9 @@ async function stubThirdParty(context) {
   }));
 }
 
-async function run(viewport, label, mobile) {
+async function run(viewport, label, mobile, colorScheme) {
   const browser = await chromium.launch();
-  const context = await browser.newContext({ viewport, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: mobile ? 2 : 1 });
+  const context = await browser.newContext({ viewport, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: mobile ? 2 : 1, colorScheme });
   await context.grantPermissions(['notifications'], { origin: BASE });
   await stubThirdParty(context);
   const page = await context.newPage();
@@ -69,6 +69,22 @@ async function run(viewport, label, mobile) {
   check(`[${label}] only the Today view is visible`, await onlyView('today'));
   check(`[${label}] no horizontal scroll (today)`, await noHScroll());
   await page.screenshot({ path: join(OUT, `${label}-today.png`), fullPage: true });
+
+  // THEME TOGGLE: starts from the system setting, flips, survives a reload
+  const bodyBg = () => page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  const startTheme = await page.getAttribute('#theme-btn', 'data-theme');
+  check(`[${label}] theme follows system (${colorScheme})`, startTheme === colorScheme, startTheme);
+  const bgBefore = await bodyBg();
+  await page.click('#theme-btn');
+  const flipped = await page.evaluate(() => document.documentElement.dataset.theme);
+  check(`[${label}] toggle switches theme`, flipped === (colorScheme === 'dark' ? 'light' : 'dark'), flipped);
+  await page.waitForTimeout(400); // let the 0.25 s colour transition finish
+  check(`[${label}] colours change with theme`, (await bodyBg()) !== bgBefore);
+  check(`[${label}] toggle label updates`, (await page.getAttribute('#theme-btn', 'aria-label')).includes(flipped === 'dark' ? 'light' : 'dark'));
+  await page.reload();
+  await page.waitForSelector('#current-card .temp-big');
+  check(`[${label}] chosen theme persists after reload`, (await page.evaluate(() => document.documentElement.dataset.theme)) === flipped);
+  await page.screenshot({ path: join(OUT, `${label}-today-${flipped}.png`) });
 
   // SEARCH
   await page.fill('#search-input', 'Deh');
@@ -154,8 +170,8 @@ async function run(viewport, label, mobile) {
 await mkdir(OUT, { recursive: true });
 const server = await start(PORT);
 try {
-  await run({ width: 390, height: 844 }, 'mobile-390', true);
-  await run({ width: 1280, height: 800 }, 'desktop-1280', false);
+  await run({ width: 390, height: 844 }, 'mobile-390', true, 'light');
+  await run({ width: 1280, height: 800 }, 'desktop-1280', false, 'dark');
 } finally {
   server.close();
 }
